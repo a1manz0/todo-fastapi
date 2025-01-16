@@ -210,3 +210,40 @@ docker-compose up -d
 - Мгновенное обновление списка задач
 - Визуальная индикация статуса задач
 - Календарь для установки сроков выполнения
+
+## Настройка окружения
+
+### Backend
+1. Создайте файл .env из примера:
+```bash
+cp .env.example .env
+```
+
+2. Настройте переменные окружения в .env файле:
+```bash
+# Установите свои значения для базы данных
+POSTGRES_USER=todos_user
+POSTGRES_PASSWORD=secure_password
+POSTGRES_DB=todos
+
+# DATABASE_URL будет автоматически использовать значения выше
+DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+```
+
+### Frontend
+1. Создайте файл с настройками фронтенда:
+```bash
+cp frontend/.env.example frontend/.env
+```
+
+2. Для локальной разработки оставьте значение по умолчанию:
+```
+VUE_APP_API_URL=http://localhost:8000
+```
+
+3. Для продакшен сервера замените на ваш IP или домен:
+```
+VUE_APP_API_URL=http://your-server-ip:8000
+```
+
+## Запуск приложения
