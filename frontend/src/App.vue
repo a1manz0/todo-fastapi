@@ -185,6 +185,8 @@
 <script>
 import axios from 'axios';
 
+const API_URL = process.env.VUE_APP_API_URL || 'http://localhost:8000';
+
 export default {
   name: 'App',
   data() {
@@ -233,7 +235,7 @@ export default {
     },
     async fetchTasks() {
       try {
-        const response = await axios.get('http://localhost:8000/tasks/', {
+        const response = await axios.get(`${API_URL}/tasks/`, {
           params: { status: this.filterStatus }
         });
         this.tasks = response.data;
@@ -243,7 +245,7 @@ export default {
     },
     async createTask() {
       try {
-        await axios.post('http://localhost:8000/tasks/', this.newTask);
+        await axios.post(`${API_URL}/tasks/`, this.newTask);
         this.newTask = {
           title: '',
           description: '',
@@ -257,7 +259,7 @@ export default {
     },
     async deleteTask(taskId) {
       try {
-        await axios.delete(`http://localhost:8000/tasks/${taskId}`);
+        await axios.delete(`${API_URL}/tasks/${taskId}`);
         await this.fetchTasks();
       } catch (error) {
         console.error('Error deleting task:', error);
@@ -306,7 +308,7 @@ export default {
     },
     async updateTask() {
       try {
-        await axios.put(`http://localhost:8000/tasks/${this.editedTask.id}`, this.editedTask);
+        await axios.put(`${API_URL}/tasks/${this.editedTask.id}`, this.editedTask);
         await this.fetchTasks();
         this.closeEdit();
       } catch (error) {
